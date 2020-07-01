@@ -1,4 +1,5 @@
 import 'package:botherapy/SplashScreen.dart';
+import 'package:botherapy/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -19,8 +20,9 @@ class _CarouselPageState extends State<CarouselPage> {
   int _current=0;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomPaint(
+    return Container(
+        color: Color.fromRGBO(240,149,149,0.5),
+        child: CustomPaint(
         painter: BgPainter(),
         child: Center(
           child:Padding(
@@ -80,7 +82,7 @@ class _CarouselPageState extends State<CarouselPage> {
                   FlatButton(
                       child: Text('Get Started',style: TextStyle(fontFamily: 'Sakkal',fontWeight: FontWeight.bold,fontSize: 24,color: Colors.white)),
                       onPressed: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>CarouselPage()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
                       },
                       shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
                       color: Color.fromRGBO(240,149,149,1)
