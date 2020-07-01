@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "949598286609",
+    "firebase_url": "https://botherapy-34326.firebaseio.com",
+    "project_id": "botherapy-34326",
+    "storage_bucket": "botherapy-34326.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:949598286609:android:c46ec03e039a0a66f612b0",
+        "android_client_info": {
+          "package_name": "com.alphaTeam.botherapy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "949598286609-djjmkg4uhig0u5njm116m7lpvnh6sue5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcvQGhdeOr1algZE0bBMUoBIVqajgTon0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "949598286609-djjmkg4uhig0u5njm116m7lpvnh6sue5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

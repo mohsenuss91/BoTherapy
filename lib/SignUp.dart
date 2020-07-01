@@ -1,6 +1,10 @@
+
+
+import 'package:botherapy/ChatRoom.dart';
 import 'package:botherapy/SplashScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SignUp extends StatelessWidget {
   final Map<String,dynamic> signUpData={'mail':null,'password':null,'name':null};
@@ -8,6 +12,14 @@ class SignUp extends StatelessWidget {
   final focusMail=new FocusNode();
   final focusPassword=new FocusNode();
   final focusName=new FocusNode();
+  final FirebaseAuth auth=FirebaseAuth.instance;
+  void validateAndSave() {
+    final form = _formKey.currentState;
+    print(signUpData['mail']);
+       form.save();
+  }
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -65,8 +77,8 @@ class SignUp extends StatelessWidget {
                                 onFieldSubmitted: (v){
                                   FocusScope.of(context).requestFocus(focusPassword);
                                 },
-                                onSaved: (String value){
-                                  signUpData['mail']=value;
+                                onChanged: (String value){
+                                  signUpData['mail']=value.toString().trim();
                                 },
                                 decoration: InputDecoration(
                                   enabledBorder: UnderlineInputBorder(
@@ -103,8 +115,8 @@ class SignUp extends StatelessWidget {
                                     _formKey.currentState.save();
                                   }
                                 },
-                                onSaved: (String value){
-                                  signUpData['password']=value;
+                                onChanged: (String value){
+                                  signUpData['password']=value.toString().trim();
                                 },
                                 decoration: InputDecoration(
                                   enabledBorder: UnderlineInputBorder(
@@ -174,7 +186,7 @@ class SignUp extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: MediaQuery.of(context).size.height*0.15,),
+              SizedBox(height: MediaQuery.of(context).size.height*0.12,),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text('By continuing , you agree that you are at least 18 years of age',textAlign: TextAlign.center,style: TextStyle(fontFamily: 'Sakkal',fontWeight: FontWeight.normal,fontSize: 20,color: Color(0xff707070))),
@@ -182,7 +194,12 @@ class SignUp extends StatelessWidget {
               FlatButton(
                 child: Text('Sign Up',style: TextStyle(fontFamily: 'Sakkal',fontWeight: FontWeight.bold,fontSize: 24,color: Colors.white)),
                 onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>SignUp()));
+                  validateAndSave();
+                  auth.createUserWithEmailAndPassword(email: signUpData['mail'], password: signUpData['password']).then((result){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatRoom()));
+                  }).catchError((e){
+                    print(e);
+                  });
                 },
                 shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
                 color: Color.fromRGBO(240,149,149,1),

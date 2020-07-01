@@ -1,5 +1,7 @@
+
+import 'package:botherapy/ChatRoom.dart';
 import 'package:botherapy/SplashScreen.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatelessWidget {
@@ -7,6 +9,8 @@ class SignIn extends StatelessWidget {
   final _formKey=new GlobalKey<FormState>();
   final focusMail=new FocusNode();
   final focusPassword=new FocusNode();
+  final FirebaseAuth auth=FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
 
@@ -64,8 +68,8 @@ class SignIn extends StatelessWidget {
                                 onFieldSubmitted: (v){
                                   FocusScope.of(context).requestFocus(focusPassword);
                                 },
-                                onSaved: (String value){
-                                  signInData['mail']=value;
+                                onChanged: (String value){
+                                  signInData['mail']=value.toString().trim();
                                 },
                                 decoration: InputDecoration(
                                   enabledBorder: UnderlineInputBorder(
@@ -102,8 +106,8 @@ class SignIn extends StatelessWidget {
                                     _formKey.currentState.save();
                                   }
                                 },
-                                onSaved: (String value){
-                                  signInData['password']=value;
+                                onChanged: (String value){
+                                  signInData['password']=value.toString().trim();
                                 },
                                 decoration: InputDecoration(
                                   enabledBorder: UnderlineInputBorder(
@@ -144,7 +148,11 @@ class SignIn extends StatelessWidget {
               FlatButton(
                 child: Text('Sign In',style: TextStyle(fontFamily: 'Sakkal',fontWeight: FontWeight.bold,fontSize: 24,color: Colors.white)),
                 onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>SignIn()));
+                  auth.signInWithEmailAndPassword(email: signInData['mail'], password: signInData['password']).then((result){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatRoom()));
+                  }).catchError((e){
+                    print(e);
+                  });
                 },
                 shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
                 color: Color.fromRGBO(240,149,149,1),
