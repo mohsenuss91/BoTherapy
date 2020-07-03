@@ -3,10 +3,12 @@ import 'package:botherapy/SignUp.dart';
 import 'package:botherapy/SplashScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     return Scaffold(
       body: Container(
           color: Color.fromRGBO(240,169,149,1).withOpacity(1),

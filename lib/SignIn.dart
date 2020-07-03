@@ -3,6 +3,7 @@ import 'package:botherapy/ChatRoom.dart';
 import 'package:botherapy/SplashScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class SignIn extends StatelessWidget {
   final Map<String,dynamic> signInData={'mail':null,'password':null};
@@ -13,7 +14,7 @@ class SignIn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       body: Container(
@@ -149,7 +150,7 @@ class SignIn extends StatelessWidget {
                 child: Text('Sign In',style: TextStyle(fontFamily: 'Sakkal',fontWeight: FontWeight.bold,fontSize: 24,color: Colors.white)),
                 onPressed: (){
                   auth.signInWithEmailAndPassword(email: signInData['mail'], password: signInData['password']).then((result){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatRoom()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatRoom(userId: result.user.uid,)));
                   }).catchError((e){
                     print(e);
                   });

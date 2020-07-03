@@ -2,6 +2,7 @@ import 'package:botherapy/SplashScreen.dart';
 import 'package:botherapy/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/services.dart';
 
 final List<String> imgList = [
   'assets/Card1.png',
@@ -20,6 +21,7 @@ class _CarouselPageState extends State<CarouselPage> {
   int _current=0;
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     return Container(
         color: Color.fromRGBO(240,149,149,0.5),
         child: CustomPaint(

@@ -5,6 +5,7 @@ import 'package:botherapy/SplashScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 
 class SignUp extends StatelessWidget {
   final Map<String,dynamic> signUpData={'mail':null,'password':null,'name':null};
@@ -22,7 +23,7 @@ class SignUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       body: Container(
@@ -196,7 +197,7 @@ class SignUp extends StatelessWidget {
                 onPressed: (){
                   validateAndSave();
                   auth.createUserWithEmailAndPassword(email: signUpData['mail'], password: signUpData['password']).then((result){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatRoom()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatRoom(userId: result.user.uid,)));
                   }).catchError((e){
                     print(e);
                   });
